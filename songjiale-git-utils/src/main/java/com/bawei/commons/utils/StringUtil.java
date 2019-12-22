@@ -15,15 +15,20 @@ public class StringUtil {
 	public static boolean isBlank(String string) {
 		if (string == null) {
 			System.out.println(string);
-			return false;
+			return true;
 		}
 		// 去空格
 		string = string.trim();
 		// 判断字符串的长度是否0
 		if (string.length() == 0) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
+	}
+	public static boolean isNumber(String num) {
+		String regex="[0-9]+";
+		boolean matches = Pattern.matches(regex,num);
+		return matches;
 	}
 
 	/**
@@ -53,6 +58,7 @@ public class StringUtil {
 		boolean isMatch = m.matches();
 		return isMatch;
 	}
+	
 
 	/**
 	 * 判断email是否正确
@@ -328,4 +334,28 @@ public class StringUtil {
 		
 		return familyName+givenName;
 	}
+	
+	/**
+	 * 验证是否是URL
+	 * @param url
+	 * @return
+	 */
+	public static boolean isHttpUrl(String str){
+		 //转换为小写
+        str = str.toLowerCase();
+        String regex = "^((https|http|ftp|rtsp|mms)?://)"  //https、http、ftp、rtsp、mms
+                + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@  
+               + "(([0-9]{1,3}\\.){3}[0-9]{1,3}" // IP形式的URL- 例如：199.194.52.184               
+                 + "|" // 允许IP和DOMAIN（域名） 或单域名
+                 + "[0-9a-z]*"  // 或单域名
+                 + "|" // 允许IP和DOMAIN（域名） 或单域名
+                 + "([0-9a-z_!~*'()-]+\\.)*" // 域名- www.  
+                 + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\\." // 二级域名  
+                + "[a-z]{2,6})" // first level domain- .com or .museum  
+                + "(:[0-9]{1,5})?" // 端口号最大为65535,5位数
+                + "((/?)|" // a slash isn't required if there is no file name  
+                + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";  
+        return  str.matches(regex);	
+	}
+	
 }
